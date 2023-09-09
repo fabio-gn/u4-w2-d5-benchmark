@@ -1,0 +1,191 @@
+CREATE TABLE Violazioni(
+IdViolazione INT IDENTITY PRIMARY KEY,
+Descrizione NVARCHAR(100) NOT NULL
+)
+
+CREATE TABLE Anagrafica(
+IdAnagrafica INT IDENTITY PRIMARY KEY,
+Cognome NVARCHAR(30) NOT NULL,
+Nome NVARCHAR(30) NOT NULL,
+Indirizzo NVARCHAR(60) NOT NULL,
+Citta NVARCHAR(30) NOT NULL,
+Cod_Fisc CHAR(16) NOT NULL
+
+)
+
+CREATE TABLE Verbali(
+IdVerbale INT IDENTITY PRIMARY KEY,
+DataViolazione DATE NOT NULL,
+IndirizzoViolazione NVARCHAR(60) NOT NULL,
+Nominativo_Agente NVARCHAR(60) NOT NULL,
+Data_Trascrizione_Verbale DATE NOT NULL,
+Importo MONEY,
+Decurtamento_Punti INT,
+idAnagrafica INT FOREIGN KEY REFERENCES Anagrafica(IdAnagrafica),
+idViolazione INT FOREIGN KEY REFERENCES Violazioni(IdViolazione)
+)
+
+INSERT INTO Violazioni (Descrizione) 
+VALUES
+('Possesso illecito di caffeina'),
+('Utilizzo improprio di Var'),
+('Lavoro illecito sul branch Main'),
+('Utilizzo improprio di alert'),
+('Violazione di branch altrui')
+
+ALTER TABLE Anagrafica ADD CAP INT NOT NULL
+
+INSERT INTO Anagrafica (Cognome, Nome, Indirizzo, Citta, CAP, Cod_Fisc )
+VALUES
+('Rossi', 'Mario', 'Via Roma, 123', 'Milano', '20100', 'RSSMRA01A01H123B'),
+('Bianchi', 'Laura', 'Via Garibaldi, 45', 'Roma', '00100', 'BNCCHR02B02D456C'),
+('Verdi', 'Giovanni', 'Corso Italia, 67', 'Torino', '10100', 'VRDGNN03C03E789D'),
+('Ferrari', 'Maria', 'Via Dante, 89', 'Napoli', '80100', 'FRRMRA04D04F012E'),
+('Romano', 'Luca', 'Piazza Venezia, 34', 'Firenze', '50100', 'RMNLCA05E05G345F'),
+('Russo', 'Anna', 'Via San Marco, 56', 'Bologna', '40100', 'RSSANN06F06H678G'),
+('Esposito', 'Paolo', 'Via Garibaldi, 12', 'Genova', '16100', 'ESPPAO07G07I901H'),
+('Martini', 'Elena', 'Via Verdi, 78', 'Palermo', '90100', 'MRTLEN08H08L234I'),
+('Conti', 'Andrea', 'Corso Vittorio Emanuele, 23', 'Catania', '95100', 'CNTNDR09I09K567L'),
+('Gentile', 'Giuseppe', 'Via Napoli, 56', 'Venezia', '30100', 'GNTGPP10J10M890N'),
+('De Luca', 'Martina', 'Via Mazzini, 34', 'Verona', '37100', 'DLMRTN11K11O123P'),
+('Barbieri', 'Marco', 'Via Garibaldi, 67', 'Trieste', '34100', 'BRBMRC12L12P456Q'),
+('Russo', 'Paola', 'Via Dante, 78', 'Parma', '43100', 'RSSPAL13M13R789S'),
+('Moretti', 'Luca', 'Via Roma, 56', 'Modena', '41100', 'MRTLCU14N14T012U'),
+('Conti', 'Alessia', 'Corso Italia, 45', 'Pisa', '56100', 'CNTALS15O15V234W'),
+('Ricci', 'Alessandro', 'Via San Marco, 12', 'Ancona', '60100', 'RCCLSN16P16X567Y'),
+('Mancini', 'Laura', 'Via Garibaldi, 23', 'Catania', '95100', 'MCNLRA17Q17Z890A'),
+('Gallo', 'Marco', 'Via Verdi, 34', 'Palermo', '90100', 'GLLMRC18R18B123C'),
+('Ferrari', 'Chiara', 'Piazza Venezia, 67', 'Napoli', '80100', 'FRRCHR19S19D456E'),
+('Vitale', 'Giorgio', 'Via Napoli, 78', 'Venezia', '30100', 'VTLGIO20T20F012G');
+
+INSERT INTO Verbali 
+(DataViolazione,
+IndirizzoViolazione,
+Nominativo_Agente,
+Data_Trascrizione_Verbale,
+Importo,
+Decurtamento_Punti,
+idAnagrafica,
+idViolazione) 
+VALUES 
+	('2023-03-15', 'Via Roma, 123, Milano', 'Stefano Casasola', '2023-03-16', 100, 2, 1, 1),
+    ('2023-03-20', 'Corso Italia, 45, Roma', 'Marco Puccio', '2023-03-21', 150, 3, 2, 3),
+    ('2023-04-05', 'Via Garibaldi, 67, Trieste', 'Michele Arcangelo', '2023-04-06', 120, 2, 3, 2),
+    ('2023-04-10', 'Piazza Venezia, 34, Firenze', 'Stefano Casasola', '2023-04-11', 80, 1, 4, 4),
+    ('2023-04-22', 'Via San Marco, 56, Bologna', 'Stefano Casasola', '2023-04-23', 90, 1, 5, 5),
+    ('2023-05-01', 'Via Napoli, 56, Venezia', 'Lidia Kovac', '2023-05-02', 110, 2, 6, 2),
+    ('2023-05-15', 'Via Garibaldi, 12, Genova', 'Lidia Kovac', '2023-05-16', 95, 1, 7, 5),
+    ('2023-05-20', 'Via Verdi, 78, Palermo', 'Marco Puccio', '2023-05-21', 130, 2, 8, 2),
+    ('2023-06-05', 'Corso Vittorio Emanuele, 23, Catania', 'Marco Puccio', '2023-06-06', 75, 1, 9, 1),
+    ('2023-06-20', 'Via Dante, 78, Parma', 'Edoardo Midali', '2023-06-21', 140, 2, 10, 4),
+    ('2023-07-10', 'Via Mazzini, 34, Verona', 'Michele Arcangelo', '2023-07-11', 115, 2, 11, 3),
+    ('2023-07-25', 'Via Garibaldi, 23, Catania', 'Marco Puccio', '2023-07-26', 85, 1, 12, 4),
+    ('2023-08-05', 'Via Verdi, 34, Palermo', 'Stefano Casasola', '2023-08-06', 105, 2, 13, 5),
+    ('2023-08-15', 'Via Roma, 56, Modena', 'Marco Puccio ', '2023-08-16', 70, 1, 14, 1),
+    ('2023-09-02', 'Corso Italia, 45, Pisa', 'Lidia Kovac', '2023-09-03', 125, 2, 15, 2),
+    ('2023-09-10', 'Via San Marco, 12, Ancona', 'Michele Arcangelo', '2023-09-11', 95, 1, 16, 2),
+    ('2023-09-22', 'Via Napoli, 78, Venezia', 'Stefano Casasola', '2023-09-23', 145, 2, 17, 3);
+
+--1
+SELECT COUNT(*) AS ConteggioVerbali FROM Verbali
+
+--2
+INSERT INTO Verbali 
+(DataViolazione,
+IndirizzoViolazione,
+Nominativo_Agente,
+Data_Trascrizione_Verbale,
+Importo,
+Decurtamento_Punti,
+idAnagrafica,
+idViolazione) 
+VALUES
+--('2023-03-15', 'Via Roma, 123, Milano', 'Mario Rossi', '2023-04-16', 100, 2, 1, 1),
+('2023-04-15', 'Via Roma, 123, Milano', 'Stefano Casasola', '2023-05-16', 100, 2, 1, 1),
+('2023-05-15', 'Via Roma, 123, Milano', 'Lidia Kovac', '2023-06-16', 150, 3, 1, 2),
+('2023-06-15', 'Via Roma, 123, Milano', 'Marco Puccio', '2023-07-16', 200, 2, 1, 3),
+('2023-06-15', 'Via Roma, 123, Milano', 'Marco Puccio', '2023-07-16', 400, 4, 1, 4),
+('2023-04-15', 'Via Roma, 123, Milano', 'Stefano Casasola', '2023-05-16', 100, 2, 3, 1),
+('2023-05-15', 'Via Roma, 123, Milano', 'Lidia Kovac', '2023-06-16', 150, 3, 3, 2),
+('2023-06-15', 'Via Roma, 123, Milano', 'Marco Puccio', '2023-07-16', 200, 2, 3, 3),
+('2023-06-15', 'Via Roma, 123, Milano', 'Marco Puccio', '2023-07-16', 400, 4, 3, 4),
+('2023-04-15', 'Via Roma, 123, Milano', 'Stefano Casasola', '2023-05-16', 100, 2, 10, 1),
+('2023-05-15', 'Via Roma, 123, Milano', 'Lidia Kovac', '2023-06-16', 150, 3, 10, 2),
+('2023-06-15', 'Via Roma, 123, Milano', 'Marco Puccio', '2023-07-16', 200, 2, 10, 3),
+('2023-06-15', 'Via Roma, 123, Milano', 'Marco Puccio', '2023-07-16', 400, 4, 10, 4)--aggiungo un verbale perché erano 1 per ognuno
+
+SELECT Anagrafica.Nome, Anagrafica.Cognome, Anagrafica.Cod_Fisc, COUNT(*) as Verbali FROM Verbali 
+INNER JOIN Anagrafica ON Anagrafica.IdAnagrafica = Verbali.idAnagrafica
+GROUP BY 
+Nome, Cognome, Cod_Fisc
+ORDER BY 
+Verbali DESC
+
+--3
+SELECT Descrizione, COUNT(Verbali.IdVerbale) as numeroVerbali
+FROM Violazioni
+LEFT JOIN
+Verbali ON Violazioni.IdViolazione = Verbali.idViolazione
+GROUP BY
+Descrizione
+ORDER BY
+numeroVerbali
+
+--4
+SELECT Nome, Cognome, Cod_fisc, Indirizzo, SUM(Verbali.Decurtamento_Punti) FROM
+Anagrafica RIGHT JOIN Verbali ON Anagrafica.IdAnagrafica = Verbali.idAnagrafica
+GROUP BY Anagrafica.Nome, Anagrafica.Cognome, Anagrafica.Cod_Fisc, Anagrafica.Indirizzo
+
+
+
+--SELECT SUM(Decurtamento_Punti) FROM Verbali WHERE idAnagrafica = 10
+--SELECT * FROM Verbali LEFT JOIN Anagrafica ON verbali.idAnagrafica = Anagrafica.IdAnagrafica WHERE Decurtamento_Punti = 1
+
+--5
+SELECT Cognome, Nome, DataViolazione, IndirizzoViolazione, Importo, Decurtamento_punti 
+FROM Anagrafica RIGHT JOIN Verbali ON Anagrafica.IdAnagrafica = Verbali.idAnagrafica 
+WHERE Citta = 'Palermo'
+
+--6
+SELECT Cognome, Nome, DataViolazione, IndirizzoViolazione, Importo, Decurtamento_punti 
+FROM Anagrafica RIGHT JOIN Verbali ON Anagrafica.IdAnagrafica = Verbali.idAnagrafica 
+WHERE DataViolazione BETWEEN '2023-01-01' AND '2023-04-01'
+
+--7
+SELECT Cognome, Nome, Cod_Fisc, SUM(Importo) as TOTALEMULTE
+FROM Anagrafica LEFT JOIN Verbali ON Anagrafica.IdAnagrafica = Verbali.idAnagrafica 
+GROUP BY Cognome, Nome, Cod_Fisc
+ORDER BY 
+TOTALEMULTE DESC -- Con il LEFT JOIN si vede anche chi non ha mai preso una multa
+
+--8
+SELECT * FROM Anagrafica WHERE Citta = 'Palermo'
+
+--9 (vedi Stored Procedures) ho provato inserendo la data '2023-04-15'
+
+--10 in che senso contestate? nel dubbio ho semplicemente ordinato per agente le violazioni
+
+SELECT Nominativo_Agente, COUNT(idVerbale) as VerbaliEseguiti FROM Verbali
+GROUP BY Nominativo_Agente
+
+--11 
+SELECT Cognome, Nome, Indirizzo, DataViolazione, Importo, Decurtamento_punti 
+FROM Verbali LEFT JOIN Anagrafica ON Anagrafica.IdAnagrafica = Verbali.IdVerbale
+WHERE Decurtamento_Punti > 2
+
+Select decurtamento_punti from verbali
+
+--12
+SELECT Cognome, Nome, Indirizzo, DataViolazione, Importo, Decurtamento_punti, Count(idVerbale)
+FROM Verbali LEFT JOIN Anagrafica ON Anagrafica.IdAnagrafica = Verbali.IdVerbale
+WHERE Importo > 100 -- sopra i 400 non ne avevo nessuna
+GROUP BY Cognome, Nome, Indirizzo, DataViolazione, Importo, Decurtamento_punti
+
+SELECT DataViolazione, SUM(Decurtamento_punti) FROM Verbali
+GROUP BY DataViolazione
+	HAVING DataViolazione = '2023-04-15'
+
+
+-- Forse c'è qualcosa che non capisco con le Stored Procedures:
+--riesco a cancellare i record usando DELETE FROM Verbali WHERE idVerbale = 27
+--non riesco a cancellare i record con la store procedure EliminaVerbale2
